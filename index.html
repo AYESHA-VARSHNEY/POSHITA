@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>POSHITA </title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  /* Shaded cream theme background locked + Dark bold text for readability */
+  :root {
+    --bg-deep:#faf6ee; 
+    --bg-panel:#f3ecdc; 
+    --bg-panel-2:#ece2cc;
+    --gold:#915f1d; /* text par clear dikhne ke liye gold ko thoda dark kiya */
+    --gold-bright:#614013; 
+    --gold-dim:#a9762f;
+    --cream:#111111; /* Pure Dark Black for main headings and titles */
+    --cream-dim:#2c251e; /* Deep charcoal for body paragraphs (fully readable) */
+    --maroon:#8a3324;
+    --line:rgba(97, 64, 19, 0.4); /* Borders ko thoda dark kiya taaki partition dikhe */
+    --shadow: rgba(0,0,0,0.08);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg-deep);
+    color:var(--cream-dim);
+    font-family:'Jost',sans-serif;
+    font-weight:400; /* font-weight 300 se 400 kiya taaki text thin na dikhe */
+    overflow-x:hidden;
+  }
+  h1,h2,h3,.serif{font-family:'Cormorant Garamond',serif; font-weight:700 !important;}
+  a{color:inherit;text-decoration:none;}
+  img{max-width:100%;display:block;}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 32px;}
+  .eyebrow{
+    font-size:13px;letter-spacing:0.25em;text-transform:uppercase;
+    color:var(--gold);font-weight:600;
+  }
+
+  body::before{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:2;
+    opacity:0.04;mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* ---------- NAV ---------- */
+  header{
+    position:fixed;top:0;left:0;right:0;z-index:50;
+    background:linear-gradient(to bottom, var(--bg-deep), transparent);
+    padding:22px 0;transition:background 0.3s, padding 0.3s;
+  }
+  header.scrolled{background:var(--bg-panel);backdrop-filter:blur(8px);padding:14px 0;border-bottom:1px solid var(--line);}
+  nav{display:flex;align-items:center;justify-content:space-between;}
+  .logo{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;letter-spacing:0.08em;color:var(--cream);}
+  .logo span{color:var(--gold-dim);}
+  .nav-links{display:flex;gap:38px;list-style:none;font-size:14px;letter-spacing:0.04em;}
+  .nav-links a{position:relative;padding-bottom:4px;color:var(--cream-dim);font-weight:500;transition:color 0.25s;}
+  .nav-links a:hover{color:var(--gold-bright);}
+  .nav-links a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:2px;background:var(--gold);transition:width 0.3s;}
+  .nav-links a:hover::after{width:100%;}
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:12px 26px;border-radius:2px;font-size:13px;letter-spacing:0.06em;
+    text-transform:uppercase;font-weight:600;cursor:pointer;border:1px solid transparent;
+    transition:all 0.3s;
+  }
+  .btn-gold{background:linear-gradient(135deg,var(--gold-bright),var(--gold));color:var(--bg-deep);}
+  .btn-gold:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(97,64,19,0.3);}
+  .btn-line{border-color:var(--gold-dim);color:var(--cream);font-weight:600;}
+  .btn-line:hover{border-color:var(--gold-bright);background:rgba(145,95,29,0.12);}
+  .nav-cta{display:none;}
+  @media(min-width:900px){.nav-cta{display:inline-flex;}}
+  .burger{display:block;font-size:26px;color:var(--gold);cursor:pointer;background:none;border:none;}
+  @media(min-width:900px){.nav-links{display:flex;}.burger{display:none;}}
+  @media(max-width:899px){.nav-links{display:none;}}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    min-height:100vh;position:relative;display:flex;align-items:center;
+    padding-top:120px;padding-bottom:80px;
+    background:
+      radial-gradient(ellipse 900px 600px at 80% 20%, rgba(170,124,17,0.06), transparent 60%),
+      radial-gradient(ellipse 700px 500px at 10% 90%, rgba(146,43,33,0.05), transparent 60%),
+      var(--bg-deep);
+  }
+  .hero-grid{display:grid;grid-template-columns:1fr;gap:56px;align-items:center;}
+  @media(min-width:960px){.hero-grid{grid-template-columns:1.05fr 0.95fr;}}
+  .hero h1{font-size:clamp(40px,6vw,68px);line-height:1.05;font-weight:700;color:var(--cream);margin:18px 0 22px;}
+  .hero h1 em{font-style:normal;color:var(--gold-bright);border-bottom:2px solid var(--gold-dim);}
+  .hero p.lead{font-size:18px;color:var(--cream-dim);max-width:460px;line-height:1.7;margin-bottom:34px;font-weight:400;}
+  .hero-actions{display:flex;flex-wrap:wrap;gap:16px;margin-bottom:44px;}
+  .trust-row{display:flex;gap:34px;flex-wrap:wrap;}
+  .trust-item{font-size:14px;color:var(--cream);display:flex;align-items:center;gap:8px;font-weight:500;}
+  .trust-item svg{width:18px;height:18px;stroke:var(--gold-bright);stroke-width:2.5;}
+
+  .seal-stage{position:relative;display:flex;align-items:center;justify-content:center;}
+  .seal{
+    width:min(380px,80vw);height:min(380px,80vw);position:relative;
+    animation:sealFloat 7s ease-in-out infinite;
+  }
+  @keyframes sealFloat{0%,100%{transform:translateY(0) rotate(0deg);}50%{transform:translateY(-14px) rotate(2deg);}}
+  .seal svg{width:100%;height:100%;}
+  .seal-ring{animation:sealSpin 40s linear infinite;transform-origin:center;}
+  @keyframes sealSpin{to{transform:rotate(360deg);}}
+  .glow{
+    position:absolute;inset:-40px;border-radius:50%;
+    background:radial-gradient(circle, rgba(170,124,17,0.12), transparent 70%);
+    filter:blur(10px);z-index:-1;
+  }
+
+  section{padding:110px 0;position:relative;}
+  .section-head{max-width:640px;margin:0 auto 60px;text-align:center;}
+  .section-head h2{font-size:clamp(32px,4vw,46px);font-weight:700;color:var(--cream);margin:14px 0 16px;}
+  .section-head p{color:var(--cream-dim);font-size:16px;line-height:1.7;font-weight:400;}
+  .divider{width:60px;height:3px;background:var(--gold-bright);margin:20px auto 0;}
+
+  /* ---------- STORY ---------- */
+  .story{background:var(--bg-panel);border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+  .story-grid{display:grid;grid-template-columns:1fr;gap:56px;align-items:center;}
+  @media(min-width:900px){.story-grid{grid-template-columns:0.9fr 1.1fr;}}
+  .story-art{aspect-ratio:1/1;border-radius:4px;border:1px solid var(--line);background:var(--bg-panel-2);
+    display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
+  .story-art svg{width:70%;height:70%;}
+  .story h2{font-size:clamp(30px,3.6vw,42px);font-weight:700;color:var(--cream);margin:14px 0 20px;}
+  .story p{color:var(--cream-dim);line-height:1.85;margin-bottom:18px;font-size:16.5px;}
+  .story-points{display:grid;gap:14px;margin-top:26px;}
+  .story-point{display:flex;gap:14px;align-items:flex-start;font-size:15.5px;color:var(--cream);font-weight:500;}
+  .story-point svg{flex:none;width:18px;height:18px;stroke:var(--gold-bright);stroke-width:2.5;margin-top:2px;}
+
+  /* ---------- PRODUCTS ---------- */
+  .products-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:26px;}
+  .card{
+    background:linear-gradient(160deg,var(--bg-panel-2),var(--bg-panel));
+    border:1px solid var(--line);border-radius:6px;padding:34px 28px;
+    transition:transform 0.35s, border-color 0.35s, box-shadow 0.35s;
+    position:relative;overflow:hidden;
+  }
+  .card:hover{transform:translateY(-8px);border-color:var(--gold);box-shadow:0 12px 24px rgba(0,0,0,0.08);}
+  .card-icon{width:64px;height:64px;margin-bottom:20px;}
+  .card-icon svg{width:100%;height:100%;}
+  .card-photo{
+    width:calc(100% + 56px);margin:-34px -28px 22px;height:190px;
+    overflow:hidden;position:relative;
+  }
+  .card-photo img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease;}
+  .card:hover .card-photo img{transform:scale(1.06);}
+  .card-photo::after{
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(to top, var(--bg-panel-2) 0%, transparent 45%);
+  }
+  .order-row{display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--line);padding-top:16px;gap:10px;flex-wrap:wrap;}
+  .whatsapp-btn{
+    display:inline-flex;align-items:center;gap:7px;font-size:13px;letter-spacing:0.04em;
+    color:var(--bg-deep);background:linear-gradient(135deg,var(--gold-bright),var(--gold));
+    padding:9px 18px;border-radius:20px;font-weight:600;transition:transform .25s, box-shadow .25s;
+  }
+  .whatsapp-btn:hover{transform:translateY(-2px);box-shadow:0 8px 18px rgba(97,64,19,0.3);}
+  .whatsapp-btn svg{width:14px;height:14px;fill:var(--bg-deep);}
+  .card h3{font-size:25px;font-weight:700;color:var(--cream);margin-bottom:8px;}
+  .card .tag{font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:var(--gold-bright);font-weight:600;margin-bottom:14px;display:block;}
+  .card p{color:var(--cream-dim);font-size:15px;line-height:1.7;margin-bottom:20px;}
+  .price{font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--gold-bright);font-weight:700;}
+  .price span{font-size:13px;color:var(--cream-dim);font-family:'Jost',sans-serif;font-weight:500;}
+
+  /* ---------- WHY ---------- */
+  .why{background:var(--bg-panel);}
+  .why-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:34px;}
+  .why-item{text-align:center;padding:0 10px;}
+  .why-icon{width:58px;height:58px;margin:0 auto 20px;border:2px solid var(--gold-bright);border-radius:50%;
+    display:flex;align-items:center;justify-content:center;}
+  .why-icon svg{width:26px;height:26px;stroke:var(--gold-bright);stroke-width:2;}
+  .why-item h3{font-size:20px;font-weight:700;color:var(--cream);margin-bottom:10px;}
+  .why-item p{color:var(--cream-dim);font-size:15px;line-height:1.7;}
+
+  /* ---------- TESTIMONIALS ---------- */
+  .testi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:26px;}
+  .testi-card{background:var(--bg-panel-2);border:1px solid var(--line);border-radius:6px;padding:32px;}
+  .stars{color:var(--gold-bright);font-size:15px;margin-bottom:16px;letter-spacing:2px;}
+  .testi-card p{font-size:16px;color:var(--cream);line-height:1.75;margin-bottom:20px;font-style:italic;font-weight:400;}
+  .testi-who{display:flex;align-items:center;gap:12px;}
+  .avatar{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--gold-bright),var(--maroon));
+    display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-weight:700;color:white;}
+  .testi-who .name{font-size:14.5px;color:var(--cream);font-weight:600;}
+  .testi-who .loc{font-size:12.5px;color:var(--cream-dim);font-weight:500;}
+
+  /* ---------- CTA / CONTACT ---------- */
+  .cta{
+    background:linear-gradient(135deg,var(--bg-panel-2),var(--bg-deep));
+    border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  }
+  .cta-grid{display:grid;grid-template-columns:1fr;gap:50px;}
+  @media(min-width:900px){.cta-grid{grid-template-columns:1fr 1fr;}}
+  .cta h2{font-size:clamp(30px,3.6vw,42px);font-weight:700;color:var(--cream);margin:14px 0 18px;}
+  .cta p{color:var(--cream-dim);line-height:1.75;margin-bottom:28px;font-size:16px;}
+  .contact-list{display:grid;gap:16px;margin-bottom:10px;}
+  .contact-list li{list-style:none;display:flex;gap:14px;align-items:center;font-size:15.5px;color:var(--cream);font-weight:500;}
+  .contact-list svg{width:18px;height:18px;stroke:var(--gold-bright);stroke-width:2;flex:none;}
+  form{display:grid;gap:16px;}
+  .field{display:grid;gap:8px;}
+  label{font-size:12px;letter-spacing:0.06em;text-transform:uppercase;color:var(--cream);font-weight:600;}
+  input,textarea{
+    background:var(--bg-panel);border:1px solid var(--line);border-radius:3px;
+    padding:14px 16px;color:var(--cream);font-family:'Jost',sans-serif;font-size:15px;
+    outline:none;transition:border-color 0.25s;font-weight:500;
+  }
+  input:focus,textarea:focus{border-color:var(--gold-bright);background:var(--bg-deep);}
+  input::placeholder, textarea::placeholder{color: #726353;}
+  textarea{resize:vertical;min-height:100px;}
+  form .btn{justify-self:start;margin-top:6px;border:none;}
+
+  /* ---------- FOOTER ---------- */
+  footer{padding:56px 0 30px;background:var(--bg-deep);}
+  .foot-grid{display:grid;grid-template-columns:1fr;gap:36px;padding-bottom:36px;border-bottom:1px solid var(--line);margin-bottom:24px;}
+  @media(min-width:800px){.foot-grid{grid-template-columns:1.4fr 1fr 1fr;}}
+  footer .logo{margin-bottom:14px;}
+  footer p.desc{color:var(--cream-dim);font-size:14.5px;line-height:1.7;max-width:320px;}
+  .foot-col h4{font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:var(--gold-bright);font-weight:600;margin-bottom:16px;}
+  .foot-col a{display:block;color:var(--cream-dim);font-size:14.5px;margin-bottom:10px;font-weight:500;transition:color .25s;}
+  .foot-col a:hover{color:var(--gold-bright);}
+  .foot-bottom{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;font-size:13px;color:var(--cream-dim);font-weight:500;}
+
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity 0.8s ease, transform 0.8s ease;}
+  .reveal.in{opacity:1;transform:translateY(0);}
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none !important;transition:none !important;}
+  }
+
+  .mobile-menu{
+    position:fixed;inset:0;background:var(--bg-deep);z-index:60;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:30px;
+    font-size:24px;font-family:'Cormorant Garamond',serif;color:var(--cream);
+    transform:translateY(-100%);transition:transform 0.4s ease;
+  }
+  .mobile-menu.open{transform:translateY(0);}
+  .mobile-menu a{font-weight:700;}
+  .mobile-menu .close{position:absolute;top:26px;right:32px;font-size:36px;color:var(--gold-bright);background:none;border:none;cursor:pointer;}
+</style>
+</head>
+<body>
+
+<header id="siteHeader">
+  <div class="wrap">
+    <nav>
+      <a href="#top" class="logo">POSHI<span>TA</span></a>
+      <ul class="nav-links">
+        <li><a href="#products">Products</a></li>
+        <li><a href="#story">Our Story</a></li>
+        <li><a href="#why">Why POSHITA</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <a href="#contact" class="btn btn-gold nav-cta">Order Now</a>
+      <button class="burger" onclick="document.getElementById('mmenu').classList.add('open')">☰</button>
+    </nav>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mmenu">
+  <button class="close" onclick="document.getElementById('mmenu').classList.remove('open')">×</button>
+  <a href="#products" onclick="document.getElementById('mmenu').classList.remove('open')">Products</a>
+  <a href="#story" onclick="document.getElementById('mmenu').classList.remove('open')">Our Story</a>
+  <a href="#why" onclick="document.getElementById('mmenu').classList.remove('open')">Why POSHITA</a>
+  <a href="#contact" onclick="document.getElementById('mmenu').classList.remove('open')">Contact</a>
+</div>
+
+<section class="hero" id="top">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow">Handpicked · Hand-Sealed · Delivered Fresh</span>
+      <h1>Pure gold, straight <br> from orchard to <em>jar</em>.</h1>
+      <p class="lead">POSHITA brings you premium dry fruits and roasted snacks, sourced from trusted farms and sealed the same day they're packed — no shortcuts, no preservatives.</p>
+      <div class="hero-actions">
+        <a href="#products" class="btn btn-gold">Explore Products</a>
+        <a href="https://wa.me/918954515073?text=Hi%2C%20I%27d%20like%20to%20place%20an%20order." target="_blank" class="btn btn-line">Order on WhatsApp</a>
+      </div>
+      <div class="trust-row">
+        <div class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M20 6L9 17l-5-5"/></svg> 100% Natural</div>
+        <div class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M20 6L9 17l-5-5"/></svg> Lab Tested</div>
+        <div class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M20 6L9 17l-5-5"/></svg> Pan-India Delivery</div>
+      </div>
+    </div>
+    <div class="seal-stage">
+      <div class="glow"></div>
+      <div class="seal">
+        <svg viewBox="0 0 300 300">
+          <g class="seal-ring">
+            <circle cx="150" cy="150" r="140" fill="none" stroke="var(--gold-dim)" stroke-width="1"/>
+            <circle cx="150" cy="150" r="128" fill="none" stroke="var(--gold)" stroke-width="1" stroke-dasharray="2 6"/>
+          </g>
+          <circle cx="150" cy="150" r="122" fill="var(--bg-panel)" stroke="var(--gold)" stroke-width="2"/>
+          <text x="150" y="95" text-anchor="middle" fill="var(--gold-bright)" font-family="Cormorant Garamond, serif" font-size="11" letter-spacing="2" font-weight="700">PREMIUM QUALITY</text>
+          <g stroke="var(--gold-bright)" stroke-width="1.8" fill="none" stroke-linecap="round">
+            <ellipse cx="150" cy="150" rx="22" ry="32" transform="rotate(20 150 150)"/>
+            <path d="M150 126 Q158 150 150 174" transform="rotate(20 150 150)"/>
+          </g>
+          <text x="150" y="198" text-anchor="middle" fill="var(--cream-dim)" font-family="Cormorant Garamond, serif" font-size="11" letter-spacing="2" font-weight="600">EST. FARM TO HOME</text>
+          <text x="150" y="224" text-anchor="middle" fill="var(--gold-bright)" font-family="Cormorant Garamond, serif" font-size="22" font-weight="700" letter-spacing="1">POSHITA</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="story" id="story">
+  <div class="wrap story-grid">
+    <div class="story-art reveal">
+      <svg viewBox="0 0 200 200">
+        <g fill="none" stroke="var(--gold-bright)" stroke-width="2" stroke-linecap="round">
+          <ellipse cx="100" cy="60" rx="30" ry="24"/>
+          <ellipse cx="60" cy="120" rx="22" ry="30" transform="rotate(-15 60 120)"/>
+          <ellipse cx="140" cy="120" rx="22" ry="30" transform="rotate(15 140 120)"/>
+          <circle cx="100" cy="140" r="18"/>
+          <path d="M100 36v-14M60 90v-10M140 90v-10" />
+        </g>
+      </svg>
+    </div>
+    <div class="reveal">
+      <span class="eyebrow">Our Story</span>
+      <h2>Rooted in tradition, <br>refined for today.</h2>
+      <p>POSHITA began with a simple idea: dry fruits should taste the way they did at your grandmother's house — rich, fresh, and honest. We work directly with orchards across the country, choosing quality over shortcuts at every step.</p>
+      <p>Every batch is cleaned, sorted, and sealed in small quantities so what reaches you is always fresh, never sitting in a warehouse for months.</p>
+      <div class="story-points">
+        <div class="story-point"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M20 6L9 17l-5-5"/></svg> Direct-from-farm sourcing, no middlemen</div>
+        <div class="story-point"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M20 6L9 17l-5-5"/></svg> Small-batch cleaning and grading</div>
+        <div class="story-point"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M20 6L9 17l-5-5"/></svg> Sealed fresh, shipped fast</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="products">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">The Collection</span>
+      <h2>Our Signature Selection</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="products-grid">
+
+      <div class="card reveal">
+        <div class="card-photo"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Almonds.jpg" alt="Almonds" loading="lazy"></div>
+        <span class="tag">Best Seller</span>
+        <h3>Almonds</h3>
+        <p>Crunchy, protein-rich almonds hand-sorted for size and freshness.</p>
+        <div class="order-row">
+          <div class="price">₹649<span> /500g</span></div>
+          <a href="https://wa.me/918954515073?text=Hi%2C%20I%27d%20like%20to%20order%20California%20Almonds%20(500g)." target="_blank" class="whatsapp-btn"><svg viewBox="0 0 32 32"><path d="M16.02 3C9.4 3 4 8.38 4 15c0 2.44.65 4.72 1.78 6.7L4 29l7.5-1.96A11.9 11.9 0 0 0 16.02 27C22.65 27 28 21.62 28 15S22.65 3 16.02 3z"/></svg> Order</a>
+        </div>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-photo"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Cashew%20nuts.JPG" alt="Cashews" loading="lazy"></div>
+        <span class="tag">Rich & Creamy</span>
+        <h3>Cashews</h3>
+        <p>Whole W240-grade cashews, roasted lightly to bring out their natural sweetness.</p>
+        <div class="order-row">
+          <div class="price">₹799<span> /500g</span></div>
+          <a href="https://wa.me/918954515073?text=Hi%2C%20I%27d%20like%20to%20order%20Jumbo%20Cashews%20(500g)." target="_blank" class="whatsapp-btn"><svg viewBox="0 0 32 32"><path d="M16.02 3C9.4 3 4 8.38 4 15c0 2.44.65 4.72 1.78 6.7L4 29l7.5-1.96A11.9 11.9 0 0 0 16.02 27C22.65 27 28 21.62 28 15S22.65 3 16.02 3z"/></svg> Order</a>
+        </div>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-photo"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Walnuts.JPG" alt="Walnuts" loading="lazy"></div>
+        <span class="tag">Brain Food</span>
+        <h3>Walnuts</h3>
+        <p>Light-colored, thin-shelled walnut kernels with a buttery, mild flavor.</p>
+        <div class="order-row">
+          <div class="price">₹899<span> /500g</span></div>
+          <a href="https://wa.me/918954515073?text=Hi%2C%20I%27d%20like%20to%20order%20Kashmiri%20Walnuts%20(500g)." target="_blank" class="whatsapp-btn"><svg viewBox="0 0 32 32"><path d="M16.02 3C9.4 3 4 8.38 4 15c0 2.44.65 4.72 1.78 6.7L4 29l7.5-1.96A11.9 11.9 0 0 0 16.02 27C22.65 27 28 21.62 28 15S22.65 3 16.02 3z"/></svg> Order</a>
+        </div>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-photo"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Pistachios%20in%20a%20bag.jpg" alt="Pistachios" loading="lazy"></div>
+        <span class="tag">Vibrant Green</span>
+        <h3>Pistachios</h3>
+        <p>Roasted and lightly salted pistachios with naturally split shells.</p>
+        <div class="order-row">
+          <div class="price">₹899<span> /500g</span></div>
+          <a href="https://wa.me/918954515073?text=Hi%2C%20I%27d%20like%20to%20order%20Iranian%20Pistachios%20(500g)." target="_blank" class="whatsapp-btn"><svg viewBox="0 0 32 32"><path d="M16.02 3C9.4 3 4 8.38 4 15c0 2.44.65 4.72 1.78 6.7L4 29l7.5-1.96A11.9 11.9 0 0 0 16.02 27C22.65 27 28 21.62 28 15S22.65 3 16.02 3z"/></svg> Order</a>
+        </div>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-photo"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Medjool-Date.jpg" alt="Medjool Dates" loading="lazy"></div>
+        <span class="tag">Naturally Sweet</span>
+        <h3>Dates</h3>
+        <p>Soft, caramel-like dates — a wholesome sweetener straight from nature.</p>
+        <div class="order-row">
+          <div class="price">₹549<span> /500g</span></div>
+          <a href="https://wa.me/918954515073?text=Hi%2C%20I%27d%20like%20to%20order%20Medjool%20Dates%20(500g)." target="_blank" class="whatsapp-btn"><svg viewBox="0 0 32 32"><path d="M16.02 3C9.4 3 4 8.38 4 15c0 2.44.65 4.72 1.78 6.7L4 29l7.5-1.96A11.9 11.9 0 0 0 16.02 27C22.65 27 28 21.62 28 15S22.65 3 16.02 3z"/></svg> Order</a>
+        </div>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-photo"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Trail%20Mix.JPG" alt="Trail Mix" loading="lazy"></div>
+        <span class="tag">Everyday Snack</span>
+        <h3>Royal Trail Mix</h3>
+        <p>A hand-blended mix of nuts, seeds, and dried berries for daily energy.</p>
+        <div class="order-row">
+          <div class="price">₹599<span> /500g</span></div>
+          <a href="https://wa.me/918954515073?text=Hi%2C%20I%27d%20like%20to%20order%20Royal%20Trail%20Mix%20(500g)." target="_blank" class="whatsapp-btn"><svg viewBox="0 0 32 32"><path d="M16.02 3C9.4 3 4 8.38 4 15c0 2.44.65 4.72 1.78 6.7L4 29l7.5-1.96A11.9 11.9 0 0 0 16.02 27C22.65 27 28 21.62 28 15S22.65 3 16.02 3z"/></svg> Order</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="why" id="why">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Why POSHITA</span>
+      <h2>Quality you can taste</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="why-grid">
+      <div class="why-item reveal">
+        <div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M12 2l2.5 6.5L21 11l-6.5 2.5L12 20l-2.5-6.5L3 11l6.5-2.5z"/></svg></div>
+        <h3>Finest Sourcing</h3>
+        <p>Selected directly from growers known for consistent, top-grade harvests.</p>
+      </div>
+      <div class="why-item reveal">
+        <div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M9 12l2 2 4-4"/></svg></div>
+        <h3>Zero Preservatives</h3>
+        <p>No added sugar, no artificial coloring — just the nut, the way nature made it.</p>
+      </div>
+      <div class="why-item reveal">
+        <div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><rect x="4" y="8" width="16" height="12" rx="1"/><path d="M8 8V6a4 4 0 0 1 8 0v2"/></svg></div>
+        <h3>Sealed Fresh</h3>
+        <p>Every pack is nitrogen-flushed and sealed to lock in crunch and aroma.</p>
+      </div>
+      <div class="why-item reveal">
+        <div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M3 12h13l-3-3m3 3-3 3"/><path d="M16 5h2a3 3 0 0 1 3 3v8a3 3 0 0 1-3 3h-2"/></svg></div>
+        <h3>Fast Delivery</h3>
+        <p>Dispatched within 24 hours, with tracked shipping across India.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Testimonials</span>
+      <h2>What our customers say</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card reveal">
+        <div class="stars">★★★★★</div>
+        <p>"The almonds taste completely different from what I usually buy — fresher, crunchier, and the packaging feels premium too."</p>
+        <div class="testi-who"><div class="avatar">R</div><div><div class="name">Riya Sharma</div><div class="loc">Delhi</div></div></div>
+      </div>
+      <div class="testi-card reveal">
+        <div class="stars">★★★★★</div>
+        <p>"Ordered the trail mix for my office pantry and everyone kept asking where it was from. Will be reordering monthly."</p>
+        <div class="testi-who"><div class="avatar">A</div><div><div class="name">Aman Verma</div><div class="loc">Pune</div></div></div>
+      </div>
+      <div class="testi-card reveal">
+        <div class="stars">★★★★★</div>
+        <p>"Delivery was quick and the dates were so soft and fresh. Finally a brand that doesn't compromise on quality."</p>
+        <div class="testi-who"><div class="avatar">S</div><div><div class="name">Sana Khan</div><div class="loc">Lucknow</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta" id="contact">
+  <div class="wrap cta-grid">
+    <div class="reveal">
+      <span class="eyebrow">Get In Touch</span>
+      <h2>Ready to taste the difference?</h2>
+      <p>Reach out for bulk orders, gifting boxes, or just to ask which nut suits your daily routine best. We usually reply within a few hours.</p>
+      <ul class="contact-list">
+        <li><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M3 5h18M3 12h18M3 19h18"/></svg> +91 89545 15073 (WhatsApp)</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg> poshitadryfruits@gmail.com</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg> Babrala, Uttar Pradesh</li>
+      </ul>
+    </div>
+    <form class="reveal" id="orderForm">
+      <div class="field">
+        <label for="name">Full Name</label>
+        <input id="name" type="text" placeholder="Your name" required>
+      </div>
+      <div class="field">
+        <label for="phone">Phone Number</label>
+        <input id="phone" type="tel" placeholder="+91" required>
+      </div>
+      <div class="field">
+        <label for="msg">Message</label>
+        <textarea id="msg" placeholder="Tell us what you'd like to order..."></textarea>
+      </div>
+      <button type="submit" class="btn btn-gold">Send Enquiry</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a href="#top" class="logo">POSHI<span>TA</span></a>
+        <p class="desc">Premium dry fruits and roasted snacks, sourced honestly and sealed fresh — delivered to your door.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Explore</h4>
+        <a href="#products">Products</a>
+        <a href="#story">Our Story</a>
+        <a href="#why">Why POSHITA</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <div class="foot-col">
+        <h4>Support</h4>
+        <a href="#contact">Bulk Orders</a>
+        <a href="#contact">Gifting Boxes</a>
+        <a href="#contact">Track Order</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 POSHITA Dry Fruits. All rights reserved.</span>
+      <span>Made with care, one seal at a time.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const OWNER_EMAIL = "poshitadryfruits@gmail.com";
+  const WHATSAPP_NUMBER = "918954515073"; 
+
+  const header = document.getElementById('siteHeader');
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el => io.observe(el));
+
+  const orderForm = document.getElementById('orderForm');
+  orderForm.addEventListener('submit', function(e){
+    e.preventDefault();
+    const name = document.getElementById('name').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const msg = document.getElementById('msg').value.trim();
+
+    const subject = encodeURIComponent(`New order enquiry from ${name}`);
+    const body = encodeURIComponent(`Name: ${name}\nPhone: ${phone}\nMessage: ${msg}`);
+    const waText = encodeURIComponent(`Hi, I'm ${name} (${phone}). ${msg}`);
+
+    window.location.href = `mailto:${OWNER_EMAIL}?subject=${subject}?body=${body}`;
+
+    setTimeout(() => {
+      window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${waText}`, '_blank');
+    }, 400);
+
+    orderForm.reset();
+  });
+</script>
+
+</body>
+</html>
