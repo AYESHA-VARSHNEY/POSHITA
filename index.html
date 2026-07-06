@@ -140,29 +140,37 @@
   .shop-layout{display:grid;grid-template-columns:1fr;gap:36px;}
   @media(min-width:860px){.shop-layout{grid-template-columns:220px 1fr;align-items:start;}}
   .shop-sidebar{display:flex;flex-direction:row;flex-wrap:wrap;gap:10px;position:static;}
-  @media(min-width:860px){.shop-sidebar{flex-direction:column;position:sticky;top:110px;}}
-  .shop-sidebar h4{width:100%;font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:var(--gold);margin-bottom:6px;}
+  @media(min-width:860px){.shop-sidebar{flex-direction:column;position:sticky;top:110px;gap:4px;}}
+  .shop-sidebar h4{width:100%;font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;}
   .cat-btn{
-    text-align:left;background:var(--bg-panel);border:1px solid var(--line);color:var(--cream-dim);
-    padding:10px 16px;border-radius:20px;font-family:'Jost',sans-serif;font-size:13.5px;cursor:pointer;
-    transition:all .25s;
+    text-align:left;background:transparent;border:none;color:var(--cream-dim);
+    padding:7px 0;font-family:'Jost',sans-serif;font-size:15px;font-weight:500;cursor:pointer;
+    transition:all .25s;position:relative;
   }
-  @media(min-width:860px){.cat-btn{border-radius:4px;}}
-  .cat-btn:hover{border-color:var(--gold-dim);color:var(--cream);}
-  .cat-btn.active{background:linear-gradient(135deg,var(--gold-bright),var(--gold));color:var(--bg-deep);border-color:transparent;font-weight:500;}
+  .cat-btn .variety-count{display:block;font-size:11.5px;font-weight:400;color:var(--cream-dim);opacity:.7;}
+  @media(min-width:860px){
+    .cat-btn:hover{color:var(--gold-bright);transform:translateX(4px);}
+    .cat-btn.active{color:var(--gold);background:none;}
+    .cat-btn.active::before{content:"•";position:absolute;left:-14px;color:var(--gold);}
+  }
+  @media(max-width:859px){
+    .cat-btn{background:var(--bg-panel);border:1px solid var(--line);padding:8px 14px;border-radius:20px;}
+    .cat-btn.active{background:linear-gradient(135deg,var(--gold-bright),var(--gold));color:var(--bg-deep);border-color:transparent;}
+  }
   .card.hide{display:none;}
-  .products-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:26px;}
+  .products-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:26px;}
   .card{
     background:linear-gradient(160deg,var(--bg-panel-2),var(--bg-panel));
-    border:1px solid var(--line);border-radius:6px;padding:34px 28px;
+    border:1px solid var(--line);border-radius:6px;padding:24px;
     transition:transform 0.35s, border-color 0.35s, box-shadow 0.35s;
     position:relative;overflow:hidden;
+    display:flex;flex-direction:column;justify-content:space-between;
   }
   .card:hover{transform:translateY(-8px);border-color:var(--gold-dim);box-shadow:0 12px 24px rgba(0,0,0,0.06);}
   .card-icon{width:64px;height:64px;margin-bottom:20px;}
   .card-icon svg{width:100%;height:100%;}
   .card-photo{
-    width:calc(100% + 56px);margin:-34px -28px 22px;height:190px;
+    width:calc(100% + 48px);margin:-24px -24px 20px;height:190px;
     overflow:hidden;position:relative;
   }
   .card-photo img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease;}
@@ -171,22 +179,43 @@
     content:"";position:absolute;inset:0;
     background:linear-gradient(to top, var(--bg-panel-2) 0%, transparent 45%);
   }
-  .order-row{display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--line);padding-top:16px;gap:10px;flex-wrap:wrap;}
+  .options-group{display:grid;gap:12px;margin-bottom:16px;border-top:1px dashed var(--line);padding-top:14px;}
+  .option-title{font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:var(--gold);font-weight:600;margin-bottom:6px;}
+  .selectors{display:flex;gap:8px;flex-wrap:wrap;}
+  .selector-btn{
+    padding:6px 14px;border:1px solid var(--line);background:transparent;font-family:'Jost',sans-serif;
+    font-size:13px;font-weight:500;color:var(--cream-dim);border-radius:4px;cursor:pointer;transition:all .2s;
+  }
+  .selector-btn:hover{border-color:var(--gold);}
+  .selector-btn.selected{background:var(--gold-bright);color:#fff;border-color:var(--gold-bright);}
+  .qty-container{display:flex;align-items:center;gap:10px;background:rgba(0,0,0,0.04);border:1px solid var(--line);border-radius:4px;padding:4px;width:fit-content;}
+  .qty-btn{width:28px;height:28px;border:none;background:transparent;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--cream);font-weight:600;}
+  .qty-btn:hover{background:rgba(0,0,0,0.06);border-radius:2px;}
+  .qty-val{font-size:14px;font-weight:600;min-width:22px;text-align:center;}
+  .order-row{display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--line);padding-top:16px;gap:10px;flex-wrap:wrap;margin-top:auto;}
   .whatsapp-btn{
     display:inline-flex;align-items:center;gap:7px;font-size:12.5px;letter-spacing:0.04em;
     color:var(--bg-deep);background:linear-gradient(135deg,var(--gold-bright),var(--gold));
     padding:9px 16px;border-radius:20px;font-weight:500;transition:transform .25s, box-shadow .25s;
+    border:none;cursor:pointer;
   }
   .whatsapp-btn:hover{transform:translateY(-2px);box-shadow:0 8px 18px rgba(170,124,17,0.25);}
   .whatsapp-btn svg{width:14px;height:14px;fill:var(--bg-deep);}
   .card h3{font-size:24px;font-weight:600;margin-bottom:8px;}
   .card .tag{font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;display:block;}
-  .card p{color:var(--cream-dim);font-size:14.5px;line-height:1.7;margin-bottom:20px;}
+  .card p{color:var(--cream-dim);font-size:14.5px;line-height:1.7;margin-bottom:16px;}
   .card-foot{display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--line);padding-top:16px;}
-  .price{font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--gold-bright);font-weight:600;}
+  .price{font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--gold-bright);font-weight:700;}
   .price span{font-size:12px;color:var(--cream-dim);font-family:'Jost',sans-serif;}
   .link-arrow{font-size:13px;color:var(--cream);display:flex;align-items:center;gap:6px;transition:gap 0.25s,color .25s;}
   .card:hover .link-arrow{gap:10px;color:var(--gold-bright);}
+  .bulk-banner{
+    display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;
+    background:linear-gradient(135deg,var(--bg-panel-2),var(--bg-panel));border:1px solid var(--line);
+    border-radius:8px;padding:22px 26px;margin-top:36px;
+  }
+  .bulk-banner p{color:var(--cream-dim);font-size:14.5px;margin:0;}
+  .bulk-banner h4{font-size:19px;font-weight:600;margin-bottom:4px;}
 
   /* ---------- WHY ---------- */
   .why{background:var(--bg-panel);}
@@ -332,7 +361,7 @@
       <a href="#products" class="cat-card reveal" data-filter="pistachios"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Pistachios%20in%20a%20bag.jpg" alt="Pistachios"><div class="cat-card-label"><h3>Pistachios</h3><span>1 variety</span></div></a>
       <a href="#products" class="cat-card reveal" data-filter="walnuts"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Walnuts.JPG" alt="Walnuts"><div class="cat-card-label"><h3>Walnuts</h3><span>1 variety</span></div></a>
       <a href="#products" class="cat-card reveal" data-filter="dates"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Medjool-Date.jpg" alt="Dates"><div class="cat-card-label"><h3>Dates</h3><span>1 variety</span></div></a>
-      <a href="#products" class="cat-card reveal" data-filter="giftbox"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Gift%20box.jpg" alt="Gift Boxes"><div class="cat-card-label"><h3>Gift Boxes</h3><span>1 variety</span></div></a>
+      <a href="#products" class="cat-card reveal" data-filter="giftbox"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Diwali%20special%20dry%20fruit%20box.png" alt="Gift Boxes"><div class="cat-card-label"><h3>Gift Boxes</h3><span>1 variety</span></div></a>
     </div>
   </div>
 </section>
@@ -367,94 +396,276 @@
       <aside class="shop-sidebar reveal">
         <h4>Category</h4>
         <button class="cat-btn active" data-filter="all">All categories</button>
-        <button class="cat-btn" data-filter="almonds">Almonds</button>
-        <button class="cat-btn" data-filter="cashews">Cashews</button>
-        <button class="cat-btn" data-filter="walnuts">Walnuts</button>
-        <button class="cat-btn" data-filter="pistachios">Pistachios</button>
-        <button class="cat-btn" data-filter="dates">Dates</button>
-        <button class="cat-btn" data-filter="trailmix">Trail Mix</button>
-        <button class="cat-btn" data-filter="giftbox">Gift Boxes</button>
+        <button class="cat-btn" data-filter="almonds">Almonds<span class="variety-count">1 variety</span></button>
+        <button class="cat-btn" data-filter="cashews">Cashews<span class="variety-count">1 variety</span></button>
+        <button class="cat-btn" data-filter="walnuts">Walnuts<span class="variety-count">1 variety</span></button>
+        <button class="cat-btn" data-filter="pistachios">Pistachios<span class="variety-count">1 variety</span></button>
+        <button class="cat-btn" data-filter="dates">Dates<span class="variety-count">1 variety</span></button>
+        <button class="cat-btn" data-filter="trailmix">Trail Mix<span class="variety-count">1 variety</span></button>
+        <button class="cat-btn" data-filter="giftbox">Gift Boxes<span class="variety-count">1 variety</span></button>
       </aside>
       <div class="products-grid" id="productsGrid">
 
-      <div class="card reveal" data-category="almonds">
-        <div class="card-photo"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Almonds.jpg" alt="Almonds" loading="lazy"></div>
-        <span class="tag">Best Seller</span>
-        <h3>Almonds</h3>
-        <p>Crunchy, protein-rich almonds hand-sorted for size and freshness.</p>
-        <div class="order-row">
-          <div class="price">₹649<span> /500g</span></div>
-          <a href="https://wa.me/918954515073?text=Hi%2C%20I%27d%20like%20to%20order%20California%20Almonds%20(500g)." target="_blank" class="whatsapp-btn"><svg viewBox="0 0 32 32"><path d="M16.02 3C9.4 3 4 8.38 4 15c0 2.44.65 4.72 1.78 6.7L4 29l7.5-1.96A11.9 11.9 0 0 0 16.02 27C22.65 27 28 21.62 28 15S22.65 3 16.02 3z"/></svg> Order</a>
+      <div class="card reveal" data-category="almonds" data-product="Almonds">
+        <div>
+          <div class="card-photo"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Almonds.jpg" alt="Almonds" loading="lazy"></div>
+          <span class="tag">Best Seller</span>
+          <h3>Almonds</h3>
+          <p>Crunchy, protein-rich almonds hand-sorted for size and freshness.</p>
+        </div>
+        <div>
+          <div class="options-group">
+            <div>
+              <div class="option-title">Select Weight</div>
+              <div class="selectors weight-selectors">
+                <button class="selector-btn" data-value="250g" data-price="349">250g</button>
+                <button class="selector-btn selected" data-value="500g" data-price="649">500g</button>
+                <button class="selector-btn" data-value="1kg" data-price="1249">1kg</button>
+              </div>
+            </div>
+            <div>
+              <div class="option-title">Occasion</div>
+              <div class="selectors occasion-selectors">
+                <button class="selector-btn selected" data-value="Personal Use">Personal</button>
+                <button class="selector-btn" data-value="Gift Packaging">Gifting</button>
+              </div>
+            </div>
+            <div>
+              <div class="option-title">Quantity</div>
+              <div class="qty-container"><button class="qty-btn minus">-</button><span class="qty-val">1</span><button class="qty-btn plus">+</button></div>
+            </div>
+          </div>
+          <div class="order-row">
+            <div class="price">₹<span class="price-num">649</span></div>
+            <button class="whatsapp-btn" onclick="sendWhatsAppOrder(this)"><svg viewBox="0 0 32 32"><path d="M16.02 3C9.4 3 4 8.38 4 15c0 2.44.65 4.72 1.78 6.7L4 29l7.5-1.96A11.9 11.9 0 0 0 16.02 27C22.65 27 28 21.62 28 15S22.65 3 16.02 3z"/></svg> Order</button>
+          </div>
         </div>
       </div>
 
-      <div class="card reveal" data-category="cashews">
-        <div class="card-photo"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Cashew%20nuts.JPG" alt="Cashews" loading="lazy"></div>
-        <span class="tag">Rich & Creamy</span>
-        <h3>Cashews</h3>
-        <p>Whole W240-grade cashews, roasted lightly to bring out their natural sweetness.</p>
-        <div class="order-row">
-          <div class="price">₹799<span> /500g</span></div>
-          <a href="https://wa.me/918954515073?text=Hi%2C%20I%27d%20like%20to%20order%20Jumbo%20Cashews%20(500g)." target="_blank" class="whatsapp-btn"><svg viewBox="0 0 32 32"><path d="M16.02 3C9.4 3 4 8.38 4 15c0 2.44.65 4.72 1.78 6.7L4 29l7.5-1.96A11.9 11.9 0 0 0 16.02 27C22.65 27 28 21.62 28 15S22.65 3 16.02 3z"/></svg> Order</a>
+      <div class="card reveal" data-category="cashews" data-product="Cashews">
+        <div>
+          <div class="card-photo"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Cashew%20nuts.JPG" alt="Cashews" loading="lazy"></div>
+          <span class="tag">Rich & Creamy</span>
+          <h3>Cashews</h3>
+          <p>Whole W240-grade cashews, roasted lightly to bring out their natural sweetness.</p>
+        </div>
+        <div>
+          <div class="options-group">
+            <div>
+              <div class="option-title">Select Weight</div>
+              <div class="selectors weight-selectors">
+                <button class="selector-btn" data-value="250g" data-price="429">250g</button>
+                <button class="selector-btn selected" data-value="500g" data-price="799">500g</button>
+                <button class="selector-btn" data-value="1kg" data-price="1549">1kg</button>
+              </div>
+            </div>
+            <div>
+              <div class="option-title">Occasion</div>
+              <div class="selectors occasion-selectors">
+                <button class="selector-btn selected" data-value="Personal Use">Personal</button>
+                <button class="selector-btn" data-value="Gift Packaging">Gifting</button>
+              </div>
+            </div>
+            <div>
+              <div class="option-title">Quantity</div>
+              <div class="qty-container"><button class="qty-btn minus">-</button><span class="qty-val">1</span><button class="qty-btn plus">+</button></div>
+            </div>
+          </div>
+          <div class="order-row">
+            <div class="price">₹<span class="price-num">799</span></div>
+            <button class="whatsapp-btn" onclick="sendWhatsAppOrder(this)"><svg viewBox="0 0 32 32"><path d="M16.02 3C9.4 3 4 8.38 4 15c0 2.44.65 4.72 1.78 6.7L4 29l7.5-1.96A11.9 11.9 0 0 0 16.02 27C22.65 27 28 21.62 28 15S22.65 3 16.02 3z"/></svg> Order</button>
+          </div>
         </div>
       </div>
 
-      <div class="card reveal" data-category="walnuts">
-        <div class="card-photo"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Walnuts.JPG" alt="Walnuts" loading="lazy"></div>
-        <span class="tag">Brain Food</span>
-        <h3>Walnuts</h3>
-        <p>Light-colored, thin-shelled walnut kernels with a buttery, mild flavor.</p>
-        <div class="order-row">
-          <div class="price">₹899<span> /500g</span></div>
-          <a href="https://wa.me/918954515073?text=Hi%2C%20I%27d%20like%20to%20order%20Kashmiri%20Walnuts%20(500g)." target="_blank" class="whatsapp-btn"><svg viewBox="0 0 32 32"><path d="M16.02 3C9.4 3 4 8.38 4 15c0 2.44.65 4.72 1.78 6.7L4 29l7.5-1.96A11.9 11.9 0 0 0 16.02 27C22.65 27 28 21.62 28 15S22.65 3 16.02 3z"/></svg> Order</a>
+      <div class="card reveal" data-category="walnuts" data-product="Walnuts">
+        <div>
+          <div class="card-photo"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Walnuts.JPG" alt="Walnuts" loading="lazy"></div>
+          <span class="tag">Brain Food</span>
+          <h3>Walnuts</h3>
+          <p>Light-colored, thin-shelled walnut kernels with a buttery, mild flavor.</p>
+        </div>
+        <div>
+          <div class="options-group">
+            <div>
+              <div class="option-title">Select Weight</div>
+              <div class="selectors weight-selectors">
+                <button class="selector-btn" data-value="250g" data-price="479">250g</button>
+                <button class="selector-btn selected" data-value="500g" data-price="899">500g</button>
+                <button class="selector-btn" data-value="1kg" data-price="1749">1kg</button>
+              </div>
+            </div>
+            <div>
+              <div class="option-title">Occasion</div>
+              <div class="selectors occasion-selectors">
+                <button class="selector-btn selected" data-value="Personal Use">Personal</button>
+                <button class="selector-btn" data-value="Gift Packaging">Gifting</button>
+              </div>
+            </div>
+            <div>
+              <div class="option-title">Quantity</div>
+              <div class="qty-container"><button class="qty-btn minus">-</button><span class="qty-val">1</span><button class="qty-btn plus">+</button></div>
+            </div>
+          </div>
+          <div class="order-row">
+            <div class="price">₹<span class="price-num">899</span></div>
+            <button class="whatsapp-btn" onclick="sendWhatsAppOrder(this)"><svg viewBox="0 0 32 32"><path d="M16.02 3C9.4 3 4 8.38 4 15c0 2.44.65 4.72 1.78 6.7L4 29l7.5-1.96A11.9 11.9 0 0 0 16.02 27C22.65 27 28 21.62 28 15S22.65 3 16.02 3z"/></svg> Order</button>
+          </div>
         </div>
       </div>
 
-      <div class="card reveal" data-category="pistachios">
-        <div class="card-photo"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Pistachios%20in%20a%20bag.jpg" alt="Pistachios" loading="lazy"></div>
-        <span class="tag">Vibrant Green</span>
-        <h3>Pistachios</h3>
-        <p>Roasted and lightly salted pistachios with naturally split shells.</p>
-        <div class="order-row">
-          <div class="price">₹899<span> /500g</span></div>
-          <a href="https://wa.me/918954515073?text=Hi%2C%20I%27d%20like%20to%20order%20Iranian%20Pistachios%20(500g)." target="_blank" class="whatsapp-btn"><svg viewBox="0 0 32 32"><path d="M16.02 3C9.4 3 4 8.38 4 15c0 2.44.65 4.72 1.78 6.7L4 29l7.5-1.96A11.9 11.9 0 0 0 16.02 27C22.65 27 28 21.62 28 15S22.65 3 16.02 3z"/></svg> Order</a>
+      <div class="card reveal" data-category="pistachios" data-product="Pistachios">
+        <div>
+          <div class="card-photo"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Pistachios%20in%20a%20bag.jpg" alt="Pistachios" loading="lazy"></div>
+          <span class="tag">Vibrant Green</span>
+          <h3>Pistachios</h3>
+          <p>Roasted and lightly salted pistachios with naturally split shells.</p>
+        </div>
+        <div>
+          <div class="options-group">
+            <div>
+              <div class="option-title">Select Weight</div>
+              <div class="selectors weight-selectors">
+                <button class="selector-btn" data-value="250g" data-price="479">250g</button>
+                <button class="selector-btn selected" data-value="500g" data-price="899">500g</button>
+                <button class="selector-btn" data-value="1kg" data-price="1749">1kg</button>
+              </div>
+            </div>
+            <div>
+              <div class="option-title">Occasion</div>
+              <div class="selectors occasion-selectors">
+                <button class="selector-btn selected" data-value="Personal Use">Personal</button>
+                <button class="selector-btn" data-value="Gift Packaging">Gifting</button>
+              </div>
+            </div>
+            <div>
+              <div class="option-title">Quantity</div>
+              <div class="qty-container"><button class="qty-btn minus">-</button><span class="qty-val">1</span><button class="qty-btn plus">+</button></div>
+            </div>
+          </div>
+          <div class="order-row">
+            <div class="price">₹<span class="price-num">899</span></div>
+            <button class="whatsapp-btn" onclick="sendWhatsAppOrder(this)"><svg viewBox="0 0 32 32"><path d="M16.02 3C9.4 3 4 8.38 4 15c0 2.44.65 4.72 1.78 6.7L4 29l7.5-1.96A11.9 11.9 0 0 0 16.02 27C22.65 27 28 21.62 28 15S22.65 3 16.02 3z"/></svg> Order</button>
+          </div>
         </div>
       </div>
 
-      <div class="card reveal" data-category="dates">
-        <div class="card-photo"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Medjool-Date.jpg" alt="Medjool Dates" loading="lazy"></div>
-        <span class="tag">Naturally Sweet</span>
-        <h3>Dates</h3>
-        <p>Soft, caramel-like dates — a wholesome sweetener straight from nature.</p>
-        <div class="order-row">
-          <div class="price">₹549<span> /500g</span></div>
-          <a href="https://wa.me/918954515073?text=Hi%2C%20I%27d%20like%20to%20order%20Medjool%20Dates%20(500g)." target="_blank" class="whatsapp-btn"><svg viewBox="0 0 32 32"><path d="M16.02 3C9.4 3 4 8.38 4 15c0 2.44.65 4.72 1.78 6.7L4 29l7.5-1.96A11.9 11.9 0 0 0 16.02 27C22.65 27 28 21.62 28 15S22.65 3 16.02 3z"/></svg> Order</a>
+      <div class="card reveal" data-category="dates" data-product="Dates">
+        <div>
+          <div class="card-photo"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Medjool-Date.jpg" alt="Medjool Dates" loading="lazy"></div>
+          <span class="tag">Naturally Sweet</span>
+          <h3>Dates</h3>
+          <p>Soft, caramel-like dates — a wholesome sweetener straight from nature.</p>
+        </div>
+        <div>
+          <div class="options-group">
+            <div>
+              <div class="option-title">Select Weight</div>
+              <div class="selectors weight-selectors">
+                <button class="selector-btn" data-value="250g" data-price="299">250g</button>
+                <button class="selector-btn selected" data-value="500g" data-price="549">500g</button>
+                <button class="selector-btn" data-value="1kg" data-price="1049">1kg</button>
+              </div>
+            </div>
+            <div>
+              <div class="option-title">Occasion</div>
+              <div class="selectors occasion-selectors">
+                <button class="selector-btn selected" data-value="Personal Use">Personal</button>
+                <button class="selector-btn" data-value="Gift Packaging">Gifting</button>
+              </div>
+            </div>
+            <div>
+              <div class="option-title">Quantity</div>
+              <div class="qty-container"><button class="qty-btn minus">-</button><span class="qty-val">1</span><button class="qty-btn plus">+</button></div>
+            </div>
+          </div>
+          <div class="order-row">
+            <div class="price">₹<span class="price-num">549</span></div>
+            <button class="whatsapp-btn" onclick="sendWhatsAppOrder(this)"><svg viewBox="0 0 32 32"><path d="M16.02 3C9.4 3 4 8.38 4 15c0 2.44.65 4.72 1.78 6.7L4 29l7.5-1.96A11.9 11.9 0 0 0 16.02 27C22.65 27 28 21.62 28 15S22.65 3 16.02 3z"/></svg> Order</button>
+          </div>
         </div>
       </div>
 
-      <div class="card reveal" data-category="trailmix">
-        <div class="card-photo"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Trail%20Mix.JPG" alt="Trail Mix" loading="lazy"></div>
-        <span class="tag">Everyday Snack</span>
-        <h3>Royal Trail Mix</h3>
-        <p>A hand-blended mix of nuts, seeds, and dried berries for daily energy.</p>
-        <div class="order-row">
-          <div class="price">₹599<span> /500g</span></div>
-          <a href="https://wa.me/918954515073?text=Hi%2C%20I%27d%20like%20to%20order%20Royal%20Trail%20Mix%20(500g)." target="_blank" class="whatsapp-btn"><svg viewBox="0 0 32 32"><path d="M16.02 3C9.4 3 4 8.38 4 15c0 2.44.65 4.72 1.78 6.7L4 29l7.5-1.96A11.9 11.9 0 0 0 16.02 27C22.65 27 28 21.62 28 15S22.65 3 16.02 3z"/></svg> Order</a>
+      <div class="card reveal" data-category="trailmix" data-product="Royal Trail Mix">
+        <div>
+          <div class="card-photo"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Trail%20Mix.JPG" alt="Trail Mix" loading="lazy"></div>
+          <span class="tag">Everyday Snack</span>
+          <h3>Royal Trail Mix</h3>
+          <p>A hand-blended mix of nuts, seeds, and dried berries for daily energy.</p>
+        </div>
+        <div>
+          <div class="options-group">
+            <div>
+              <div class="option-title">Select Weight</div>
+              <div class="selectors weight-selectors">
+                <button class="selector-btn" data-value="250g" data-price="320">250g</button>
+                <button class="selector-btn selected" data-value="500g" data-price="599">500g</button>
+                <button class="selector-btn" data-value="1kg" data-price="1149">1kg</button>
+              </div>
+            </div>
+            <div>
+              <div class="option-title">Occasion</div>
+              <div class="selectors occasion-selectors">
+                <button class="selector-btn selected" data-value="Personal Use">Personal</button>
+                <button class="selector-btn" data-value="Gift Packaging">Gifting</button>
+              </div>
+            </div>
+            <div>
+              <div class="option-title">Quantity</div>
+              <div class="qty-container"><button class="qty-btn minus">-</button><span class="qty-val">1</span><button class="qty-btn plus">+</button></div>
+            </div>
+          </div>
+          <div class="order-row">
+            <div class="price">₹<span class="price-num">599</span></div>
+            <button class="whatsapp-btn" onclick="sendWhatsAppOrder(this)"><svg viewBox="0 0 32 32"><path d="M16.02 3C9.4 3 4 8.38 4 15c0 2.44.65 4.72 1.78 6.7L4 29l7.5-1.96A11.9 11.9 0 0 0 16.02 27C22.65 27 28 21.62 28 15S22.65 3 16.02 3z"/></svg> Order</button>
+          </div>
         </div>
       </div>
 
-      <div class="card reveal" data-category="giftbox">
-        <div class="card-photo"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Gift%20box.jpg" alt="Premium Gift Box" loading="lazy"></div>
-        <span class="tag">Gifting</span>
-        <h3>Premium Gift Box</h3>
-        <p>A curated assortment of our best dry fruits, packed in a gift-ready box.</p>
-        <div class="order-row">
-          <div class="price">₹1299<span> /box</span></div>
-          <a href="https://wa.me/918954515073?text=Hi%2C%20I%27d%20like%20to%20order%20a%20Premium%20Gift%20Box." target="_blank" class="whatsapp-btn"><svg viewBox="0 0 32 32"><path d="M16.02 3C9.4 3 4 8.38 4 15c0 2.44.65 4.72 1.78 6.7L4 29l7.5-1.96A11.9 11.9 0 0 0 16.02 27C22.65 27 28 21.62 28 15S22.65 3 16.02 3z"/></svg> Order</a>
+      <div class="card reveal" data-category="giftbox" data-product="Premium Gift Box">
+        <div>
+          <div class="card-photo"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Diwali%20special%20dry%20fruit%20box.png" alt="Premium Gift Box" loading="lazy"></div>
+          <span class="tag">Gifting</span>
+          <h3>Premium Gift Box</h3>
+          <p>A curated assortment of our best dry fruits, packed in a gift-ready box.</p>
+        </div>
+        <div>
+          <div class="options-group">
+            <div>
+              <div class="option-title">Select Size</div>
+              <div class="selectors weight-selectors">
+                <button class="selector-btn" data-value="Small" data-price="799">Small</button>
+                <button class="selector-btn selected" data-value="Medium" data-price="1299">Medium</button>
+                <button class="selector-btn" data-value="Large" data-price="1999">Large</button>
+              </div>
+            </div>
+            <div>
+              <div class="option-title">Occasion</div>
+              <div class="selectors occasion-selectors">
+                <button class="selector-btn" data-value="Personal Use">Personal</button>
+                <button class="selector-btn selected" data-value="Gift Packaging">Gifting</button>
+              </div>
+            </div>
+            <div>
+              <div class="option-title">Quantity</div>
+              <div class="qty-container"><button class="qty-btn minus">-</button><span class="qty-val">1</span><button class="qty-btn plus">+</button></div>
+            </div>
+          </div>
+          <div class="order-row">
+            <div class="price">₹<span class="price-num">1299</span></div>
+            <button class="whatsapp-btn" onclick="sendWhatsAppOrder(this)"><svg viewBox="0 0 32 32"><path d="M16.02 3C9.4 3 4 8.38 4 15c0 2.44.65 4.72 1.78 6.7L4 29l7.5-1.96A11.9 11.9 0 0 0 16.02 27C22.65 27 28 21.62 28 15S22.65 3 16.02 3z"/></svg> Order</button>
+          </div>
         </div>
       </div>
 
       </div>
+    </div>
+    <div class="bulk-banner reveal">
+      <div>
+        <h4>Ordering for an event or office?</h4>
+        <p>Get special pricing on bulk orders of 5kg and above, with custom packaging available.</p>
+      </div>
+      <a href="https://wa.me/918954515073?text=Hi%2C%20I%27d%20like%20a%20quote%20for%20a%20bulk%20order." target="_blank" class="btn btn-gold">Request Bulk Order</a>
     </div>
   </div>
 </section>
@@ -605,6 +816,64 @@
   document.querySelectorAll('.cat-card').forEach(card => {
     card.addEventListener('click', () => applyFilter(card.dataset.filter));
   });
+
+  // ---- Product card interactivity: weight/size selector, occasion selector, quantity, dynamic price ----
+  document.querySelectorAll('.selectors').forEach(group => {
+    group.addEventListener('click', (e) => {
+      if (e.target.classList.contains('selector-btn')) {
+        group.querySelectorAll('.selector-btn').forEach(btn => btn.classList.remove('selected'));
+        e.target.classList.add('selected');
+        if (group.classList.contains('weight-selectors')) {
+          const card = group.closest('.card');
+          const basePrice = parseInt(e.target.getAttribute('data-price'));
+          const qty = parseInt(card.querySelector('.qty-val').textContent);
+          card.querySelector('.price-num').textContent = basePrice * qty;
+        }
+      }
+    });
+  });
+
+  document.querySelectorAll('.qty-container').forEach(counter => {
+    const minusBtn = counter.querySelector('.minus');
+    const plusBtn = counter.querySelector('.plus');
+    const qtyVal = counter.querySelector('.qty-val');
+    const card = counter.closest('.card');
+
+    plusBtn.addEventListener('click', () => {
+      let qty = parseInt(qtyVal.textContent) + 1;
+      qtyVal.textContent = qty;
+      updateTotalPrice(card, qty);
+    });
+    minusBtn.addEventListener('click', () => {
+      let qty = parseInt(qtyVal.textContent);
+      if (qty > 1) { qty--; qtyVal.textContent = qty; updateTotalPrice(card, qty); }
+    });
+  });
+
+  function updateTotalPrice(card, qty) {
+    const selectedWeight = card.querySelector('.weight-selectors .selected');
+    const basePrice = parseInt(selectedWeight.getAttribute('data-price'));
+    card.querySelector('.price-num').textContent = basePrice * qty;
+  }
+
+  function sendWhatsAppOrder(button) {
+    const card = button.closest('.card');
+    const productName = card.getAttribute('data-product');
+    const weight = card.querySelector('.weight-selectors .selected').getAttribute('data-value');
+    const occasion = card.querySelector('.occasion-selectors .selected').getAttribute('data-value');
+    const quantity = card.querySelector('.qty-val').textContent;
+    const finalPrice = card.querySelector('.price-num').textContent;
+
+    const message = `Hello POSHITA! I'd like to place an order:\n\n` +
+                    `Product: ${productName}\n` +
+                    `Weight/Size: ${weight}\n` +
+                    `Occasion: ${occasion}\n` +
+                    `Quantity: ${quantity}\n` +
+                    `Total Price: ₹${finalPrice}\n\n` +
+                    `Please share details to confirm!`;
+
+    window.open(`https://wa.me/918954515073?text=${encodeURIComponent(message)}`, '_blank');
+  }
 
   const orderForm = document.getElementById('orderForm');
   orderForm.addEventListener('submit', function(e){
